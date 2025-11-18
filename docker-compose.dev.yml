@@ -1,0 +1,21 @@
+# 开发环境配置文件
+version: '3.8'
+
+services:
+  github-mr-review-dev:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - GITHUB_WEBHOOK_SECRET=dev-secret
+      - GITHUB_TOKEN=dev-token
+      - AI_API_KEY=dev-ai-key
+      - AI_API_URL=https://api.openai.com/v1/chat/completions
+      - LOG_LEVEL=debug
+      - NODE_ENV=development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run start:dev
+    restart: unless-stopped
